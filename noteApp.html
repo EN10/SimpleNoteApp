@@ -1,0 +1,39 @@
+<body onload="Load()" onunload="Save()">
+<div>
+<button id="Top" onclick="Add()">+</button> New Row
+</div>
+<div id="List"></div>
+<script>
+    var divId = 100;
+    var inputId = 1;
+function Load(){
+    for (var i=1; i<=localStorage.getItem(0); i++)
+    { Add(); 
+      document.getElementById(i).value = localStorage.getItem(i);
+    }
+}
+function Save(){
+localStorage.setItem(0, divId-100);
+    for (var i=1; i<=inputId; i++)
+    { localStorage.setItem(i, document.getElementById(i).value); }
+}
+function Add() {
+    var parent = document.getElementById("List");
+    var newElement = document.createElement("div");
+    newElement.setAttribute('id', divId);
+    var html = "<textarea id="+inputId+"></textarea>";
+    html += " <button onclick='Remove("+divId+")'>-</button>";
+    newElement.innerHTML = html;
+    parent.appendChild(newElement);
+    divId ++;
+    inputId ++;
+}
+function Remove(x) {
+    var child = document.getElementById(x);
+    child.parentNode.removeChild(child);
+    localStorage.setItem(x-99, "");
+    divId --;
+}
+</script>
+
+</body>
